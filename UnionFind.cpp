@@ -26,13 +26,16 @@ struct UnionFind {
     }
 
     bool unite(int u, int v) {
-        if (same(u, v))
+        u = find(u);
+        v = find(v);
+
+        if (u == v)
             return false;
 
-        if (size[p[v]] > size[p[u]])
+        if (size[u] > size[v])
             swap(u, v);
-        size[p[u]] += size[p[v]];
-        p[p[v]] = p[u];
+        size[u] += size[v];
+        p[v] = u;
         sets--;
         return true;
     }
